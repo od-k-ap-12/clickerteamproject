@@ -1,0 +1,47 @@
+*{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+section {
+  outline: 1px solid red;
+}
+
+/* Background forest, etc */
+.upper-part {
+  height: 10vw;
+}
+
+/* Central part: field, enemies */
+.central-part{
+  height: 20vw;
+}
+.central-part .container{
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
+}
+.crop-field{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 20vw;
+  outline: 1px solid green;
+}
+.crop{
+  width: 120px;
+  height: 5vw;
+  outline: 1px solid black;
+}
+
+/* Lower part: guard, inventory */
+.lower-part{
+  height: 20vw;
+}
+.farmer{
+  position: absolute;
+  bottom: 0;
+  left: 45vw;
+}
