@@ -16,7 +16,8 @@ var lifeElements = lifeContainer.getElementsByClassName('life');
 const enemies = []; 
 const enemySpeed = 3;
 const spawnRate = 2000; 
-let lastSpawn = -1; 
+let lastSpawn = -1;
+let animationFrame = 0; 
 
 function createEnemy() {
     let enemy = document.createElement('div');
@@ -44,7 +45,18 @@ function createEnemy() {
     gameArea.appendChild(enemy);
     enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 2 });
 }
-
+function idleFrame(){
+    gameArea.style.background="url(images/background2.jpg)";
+    gameArea.style.backgroundSize="cover";
+    gameArea.style.backgroundPosition= "center";
+}
+function shootFrame(){
+    setTimeout(()=>{
+        gameArea.style.background="url(images/background1.jpg)";
+        gameArea.style.backgroundSize="cover";
+        gameArea.style.backgroundPosition= "center";
+    },200);
+}
 function moveEnemies() {
     enemies.forEach((enemyObj, index) => {
         const enemy = enemyObj.element; 
@@ -70,6 +82,7 @@ function moveEnemies() {
 }
 
 function shoot(event) {
+    idleFrame();
     enemies.forEach((enemyObj, index) => {
         const rect = enemyObj.element.getBoundingClientRect();
 
@@ -154,11 +167,14 @@ function updateLifeCount(lifesCount) {
 
 document.addEventListener('mousemove', function(e) {
     const dot = document.getElementById('cursorDot'); 
-
-    dot.style.left = e.pageX + 'px'; 
-    dot.style.top = e.pageY + 'px'; 
+    var rect = gameArea.getBoundingClientRect();
+      scaleX = 1200 / rect.width,
+      scaleY = document.body.scrollHeight / rect.height;
+    dot.style.left = (e.pageX - rect.left) * scaleX + 'px'; 
+    dot.style.top = (e.pageY - rect.top) * scaleY + 'px'; 
 });
 
 document.addEventListener('mousedown', shoot);
+document.addEventListener('mouseup', shootFrame);
 
 requestAnimationFrame(gameLoop);

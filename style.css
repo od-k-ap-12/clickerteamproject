@@ -34,7 +34,7 @@ body {
 
 /* level.html */
 #gameArea {
-  width: 1200px;
+  width: 1600px;
   height: inherit;
   background: url(images/background1.jpg);
   background-size: cover;
@@ -57,6 +57,7 @@ body {
 #cursorDot {
   position: absolute;
   pointer-events: none;
+  z-index: 10;
 }
 .target {
   width: 80px;
