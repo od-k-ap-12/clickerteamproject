@@ -7,13 +7,14 @@ gold.classList.add('gold');
 gameArea.appendChild(gold); 
 
 let secondsLeft = 60; 
-const timer = document.getElementById('timer'); 
+const timer = document.getElementById('timerContainer');
 
-let goldsHP = 5; 
-updateGoldsHP(); 
+let lifesCount = 5;
+var lifeContainer = document.getElementById('lifeContainer');
+var lifeElements = lifeContainer.getElementsByClassName('life');
 
 const enemies = []; 
-const enemySpeed = 1;
+const enemySpeed = 3;
 const spawnRate = 2000; 
 let lastSpawn = -1; 
 
@@ -21,17 +22,28 @@ function createEnemy() {
     let enemy = document.createElement('div');
     enemy.className = 'enemy'; 
 
-    let yPos = gameArea.offsetHeight / 2 - 15; 
+    var spriteEnemy = document.createElement('img');
+    spriteEnemy.src = "images/enemy1.png";
+
+    let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 67); 
     enemy.style.top = yPos + 'px'; 
 
-    let xPos = Math.random() < 0.5 ? 0 : gameArea.offsetWidth - 30; 
-    enemy.style.left = xPos + 'px'; 
+    let x = Math.random();
 
+    if(x < 0.5){
+        xPos = -100;
+        spriteEnemy.style.transform = 'scaleX(-1)';
+    }
+    else{
+        xPos = gameArea.offsetWidth - 30;
+        spriteEnemy.style.transform = 'scaleX(1)';
+    }
+
+    enemy.style.left = xPos + 'px';
+    enemy.appendChild(spriteEnemy);
     gameArea.appendChild(enemy);
-
     enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 2 });
 }
-
 
 function moveEnemies() {
     enemies.forEach((enemyObj, index) => {
@@ -45,18 +57,14 @@ function moveEnemies() {
         enemy.style.left = enemyObj.xPos + 'px';
 
         if (
-            Math.abs(enemyObj.xPos - (gameArea.offsetWidth / 2 - gold.offsetWidth / 2)) < 30 && 
-            Math.abs(enemyObj.yPos - (gameArea.offsetHeight / 2 - gold.offsetHeight / 2)) < 30  
-        ) {
-            goldsHP--; 
-            updateGoldsHP(); 
+            Math.abs((enemyObj.xPos + 20) - (gameArea.offsetWidth / 2 - gold.offsetWidth)) < 70 && 
+            Math.abs(enemyObj.yPos - (gameArea.offsetHeight / 2 - gold.offsetHeight)) < 70  
+        ){
+            lifesCount--; 
+            updateLifeCount(lifesCount);
 
             enemy.remove(); 
             enemies.splice(index, 1); 
-
-            if (goldsHP <= 0) {
-                gameOver(); 
-            }
         }
     });
 }
@@ -102,12 +110,11 @@ function gameLoop(currentTime) {
         createEnemy(); 
         lastSpawn = currentTime;
     }
+    moveEnemies();
 
-    moveEnemies(); 
-
-    if (goldsHP > 0 && secondsLeft > 0) {
+    if (lifesCount > 0 && secondsLeft > 0) {
         requestAnimationFrame(gameLoop); 
-    } else if (goldsHP > 0) { 
+    } else if (lifesCount > 0) { 
         winGame(); 
     }
 }
@@ -117,27 +124,31 @@ function winGame() {
     clearInterval(timerInterval); 
     window.cancelAnimationFrame(gameInterval); 
 }
-
 function gameOver() {
     alert('Game Over!');
     window.cancelAnimationFrame(gameInterval);
 }
-
 function updateTimer() {
     if (secondsLeft > 0) {
         secondsLeft--;
-        timer.innerHTML = 'Seconds Left: ' + secondsLeft;
+        timer.innerHTML = 'Time Left: ' + secondsLeft + ' s';
     } else {
         clearInterval(timerInterval); 
     }
 }
+
 const timerInterval = setInterval(updateTimer, 1000); 
 
-function updateGoldsHP() {
-    const HP = document.getElementById('goldsHP');
-    HP.innerHTML = 'HP: ' + goldsHP;
-    if (goldsHP <= 0) {
+function updateLifeCount(lifesCount) {
+    // Перевірка на коректність кількості життів
+    if(lifesCount == 0 ){
         gameOver();
+    }
+    else if (lifesCount > 0 && lifesCount <= lifeElements.length) 
+    {
+        while (lifeElements.length > lifesCount){
+            lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
+        }
     }
 }
 
@@ -147,6 +158,7 @@ document.addEventListener('mousemove', function(e) {
     dot.style.left = e.pageX + 'px'; 
     dot.style.top = e.pageY + 'px'; 
 });
+
 document.addEventListener('mousedown', shoot);
 
 requestAnimationFrame(gameLoop);
