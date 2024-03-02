@@ -204,8 +204,9 @@ function updateLifeCount(lifesCount) {
 document.addEventListener('mousemove', function(e) {
     const dot = document.getElementById('cursorDot'); 
     var rect = gameArea.getBoundingClientRect();
-      scaleX = 1200 / rect.width,
-      scaleY = document.body.scrollHeight / rect.height;
+    // размер окна * 0.9(= размер gameArea) / ширину или высоту 
+    scaleX = gameArea.style.width = window.innerWidth * 0.9 / rect.width,
+    scaleY = gameArea.style.width = window.innerHeight * 0.9 / rect.height;
     dot.style.left = (e.pageX - rect.left) * scaleX + 'px'; 
     dot.style.top = (e.pageY - rect.top) * scaleY + 'px'; 
 });

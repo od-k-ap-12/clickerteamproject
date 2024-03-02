@@ -12,6 +12,8 @@ body {
   display: flex;
   justify-content: center;
   background: url(images/bg_blur.JPEG);
+  background-size: cover;
+  cursor: none;
 }
 
 /* index.html */
@@ -28,6 +30,7 @@ body {
   bottom: 20%;
   left: 10%;
   text-decoration: none;
+  cursor: none;
 }
 .start-game:hover {
   background: rgb(63, 88, 60);
@@ -121,8 +124,11 @@ body {
   width: 100%;
 }
 
+  /* хб enemy3: 283x180; сделать +5 для стороны
+     хб считаем по самому большому врагу; 
+     при желании можно переделать на 3 класса */
 .enemy {
-  width: 120px;
-  height: 75px;
+  width: 287px;
+  height: 185px;
   position: absolute;
 }
