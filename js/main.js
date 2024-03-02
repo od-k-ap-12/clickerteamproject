@@ -1,12 +1,25 @@
+// переменные уровней
+let currentLevel = 1;
+const maxLevel = 5;
+
 const gameArea = document.getElementById('gameArea');
 
+// размер окна игры пропорционален зависимости от размеров экрана
+document.addEventListener('DOMContentLoaded', function() {
+    const gameArea = document.getElementById('gameArea');
+    if (gameArea) {
+      gameArea.style.width = window.innerWidth * 0.9 + 'px';
+      gameArea.style.height = window.innerHeight * 0.9 + 'px'; 
+    }
+  });
+  
 const gold = document.createElement('div');
 gold.setAttribute('id', 'gold');
 gold.classList.add('gold'); 
 
 gameArea.appendChild(gold); 
 
-let secondsLeft = 60; 
+let secondsLeft = 30; 
 const timer = document.getElementById('timerContainer');
 
 let lifesCount = 5;
@@ -19,12 +32,17 @@ const spawnRate = 2000;
 let lastSpawn = -1;
 let animationFrame = 0; 
 
+// массив спрайтов врагов
+const enemySprites = ["images/enemy1.png", "images/enemy2.png", "images/enemy3.png"];
+
 function createEnemy() {
     let enemy = document.createElement('div');
     enemy.className = 'enemy'; 
 
     var spriteEnemy = document.createElement('img');
-    spriteEnemy.src = "images/enemy1.png";
+    // рандом спрайта для врага
+    const randomIndex = Math.floor(Math.random() * enemySprites.length); 
+    spriteEnemy.src = enemySprites[randomIndex]; 
 
     let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 67); 
     enemy.style.top = yPos + 'px'; 
@@ -45,11 +63,13 @@ function createEnemy() {
     gameArea.appendChild(enemy);
     enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 2 });
 }
+
 function idleFrame(){
     gameArea.style.background="url(images/background2.jpg)";
     gameArea.style.backgroundSize="cover";
     gameArea.style.backgroundPosition= "center";
 }
+
 function shootFrame(){
     setTimeout(()=>{
         gameArea.style.background="url(images/background1.jpg)";
@@ -57,14 +77,18 @@ function shootFrame(){
         gameArea.style.backgroundPosition= "center";
     },200);
 }
+
 function moveEnemies() {
+    // изменение скорости в зависимости от уровня
+    const levelSpeed = enemySpeed + (currentLevel - 1) * 0.5; 
+
     enemies.forEach((enemyObj, index) => {
         const enemy = enemyObj.element; 
 
         if (enemyObj.xPos < gameArea.offsetWidth / 2) {
-            enemyObj.xPos += enemySpeed; 
+            enemyObj.xPos += levelSpeed; 
         } else {
-            enemyObj.xPos -= enemySpeed; 
+            enemyObj.xPos -= levelSpeed; 
         }
         enemy.style.left = enemyObj.xPos + 'px';
 
@@ -110,9 +134,9 @@ function shoot(event) {
         event.clientY >= goldRect.top &&
         event.clientY <= goldRect.bottom
     ) {
-        goldsHP--;
-        updateGoldsHP();
-        if (goldsHP <= 0) {
+        lifesCount--; 
+        updateLifeCount(lifesCount);
+        if (lifesCount <= 0) {
             gameOver(); 
         }
     }
@@ -133,18 +157,29 @@ function gameLoop(currentTime) {
 }
 
 function winGame() {
-    alert('You Won!');
-    clearInterval(timerInterval); 
-    window.cancelAnimationFrame(gameInterval); 
+    if (currentLevel < maxLevel) {
+        alert('Level №' + currentLevel + ' complete! Next one is comming');
+        currentLevel++;
+        secondsLeft = 30; 
+        requestAnimationFrame(gameLoop);
+    } else {
+        alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
+        clearInterval(timerInterval); 
+        window.cancelAnimationFrame(animationFrame); 
+        localStorage.removeItem('lifesCount'); 
+    }
 }
+
 function gameOver() {
     alert('Game Over!');
     window.cancelAnimationFrame(gameInterval);
+    localStorage.removeItem('lifesCount'); 
 }
+
 function updateTimer() {
     if (secondsLeft > 0) {
         secondsLeft--;
-        timer.innerHTML = 'Time Left: ' + secondsLeft + ' s';
+        document.getElementById('timeLeft').textContent = ': ' + secondsLeft + ' s';
     } else {
         clearInterval(timerInterval); 
     }
@@ -153,17 +188,18 @@ function updateTimer() {
 const timerInterval = setInterval(updateTimer, 1000); 
 
 function updateLifeCount(lifesCount) {
-    // Перевірка на коректність кількості життів
-    if(lifesCount == 0 ){
+    if (lifesCount == 0) {
         gameOver();
-    }
-    else if (lifesCount > 0 && lifesCount <= lifeElements.length) 
-    {
-        while (lifeElements.length > lifesCount){
+    } else if (lifesCount > 0 && lifesCount <= lifeElements.length) {
+        while (lifeElements.length > lifesCount) {
             lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
         }
     }
+
+    // хранение переменной в локальном хранилище на протяжении всех уровней
+    localStorage.setItem('lifesCount', lifesCount);
 }
+
 
 document.addEventListener('mousemove', function(e) {
     const dot = document.getElementById('cursorDot'); 

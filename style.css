@@ -11,12 +11,13 @@ body {
   height: 100%;
   display: flex;
   justify-content: center;
-  background-color: rgb(239, 236, 196);
+  background: url(images/bg_blur.JPEG);
 }
 
 /* index.html */
 .start-game {
   background: rgb(95, 124, 65);
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
   border: none;
   border-radius: 20px;
   color: aliceblue;
@@ -34,12 +35,15 @@ body {
 
 /* level.html */
 #gameArea {
-  width: 1600px;
-  height: inherit;
+  border-radius: 20px; 
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
   background: url(images/background1.jpg);
   background-size: cover;
   background-position: center;
-  position: relative;
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
   overflow: hidden;
   cursor: none;
 }
@@ -95,7 +99,17 @@ body {
 #timerContainer{
   right: 15px;
 }
+/* стиль для пнг таймера */
+#timerContainer img {
+  vertical-align: middle; 
+  width: 32px; 
+  height: 32px;
+  margin-right: 5px; 
+  display: flex;
+  align-items: center;
+}
 .life {
+  vertical-align: middle; 
   width: 32px; 
   height: 32px;
   margin-right: 5px;
