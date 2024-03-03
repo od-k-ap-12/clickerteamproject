@@ -19,7 +19,7 @@ gold.classList.add('gold');
 
 gameArea.appendChild(gold); 
 
-let secondsLeft = 10; 
+let secondsLeft = 30; 
 const timer = document.getElementById('timerContainer');
 
 let lifesCount = 5;
@@ -28,6 +28,8 @@ var lifeElements = lifeContainer.getElementsByClassName('life');
 
 const enemies = []; 
 const enemySpeed = 3;
+// переменная замедляющая врагов(бонус)
+let speedDowngrade = 0;
 const spawnRate = 2000; 
 let lastSpawn = -1;
 let animationFrame = 0; 
@@ -82,8 +84,8 @@ function shootFrame(){
 }
 
 function moveEnemies() {
-    // изменение скорости в зависимости от уровня
-    const levelSpeed = enemySpeed + (currentLevel - 1) * 0.5; 
+    // изменение скорости в зависимости от уровня и приминения бонуса
+    const levelSpeed = (enemySpeed - speedDowngrade) + (currentLevel - 1) * 0.5; 
 
     enemies.forEach((enemyObj, index) => {
         const enemy = enemyObj.element; 
@@ -119,28 +121,33 @@ function shoot(event) {
             event.clientY >= rect.top &&
             event.clientY <= rect.bottom
         ) {
-            enemyObj.hitPoints--;
+            // проверка флага
+            if (powerShotActive) {
+                enemyObj.hitPoints = 0; // супер урон(-2)
+            } else {
+                enemyObj.hitPoints--; // обычный урон(-1)
+            }
+
             if (enemyObj.hitPoints <= 0) {
                 enemyObj.element.remove();
                 enemies.splice(index, 1);
             } else {
-                enemyObj.element.style.opacity = enemyObj.hitPoints / 2; 
+                enemyObj.element.style.opacity = enemyObj.hitPoints / 2;
             }
         }
     });
 
     const goldRect = gold.getBoundingClientRect();
-
     if (
         event.clientX >= goldRect.left &&
         event.clientX <= goldRect.right &&
         event.clientY >= goldRect.top &&
         event.clientY <= goldRect.bottom
     ) {
-        lifesCount--; 
+        lifesCount--;
         updateLifeCount(lifesCount);
         if (lifesCount <= 0) {
-            gameOver(); 
+            gameOver();
         }
     }
 }
@@ -161,8 +168,8 @@ function gameLoop(currentTime) {
 
 function winGame() {
     if (currentLevel < maxLevel) {
-        // старт только после выбора
-        secondsLeft = 10;
+        secondsLeft = 30;
+        clearInterval(timerInterval); 
         showBonusSelection();
     } else {
         alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
@@ -190,28 +197,16 @@ function updateTimer() {
 const timerInterval = setInterval(updateTimer, 1000); 
 
 function updateLifeCount(lifesCount) {
-    const lifeContainer = document.getElementById('lifeContainer');
-    const lifeElements = lifeContainer.getElementsByClassName('life');
-
-    // удаляем лишние сердца, если их слишком много
-    while (lifeElements.length > lifesCount) {
-        lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
-    }
-
-    // добавляем недостающие сердца
-    while (lifeElements.length < lifesCount) {
-        const newLife = document.createElement('div');
-        newLife.className = 'life';
-        newLife.innerHTML = '<img src="images/heart.png">';
-        lifeContainer.appendChild(newLife);
-    }
-
-    // обновляем состояние игры в локальном хранилище
-    localStorage.setItem('lifesCount', lifesCount);
-
     if (lifesCount == 0) {
         gameOver();
+    } else if (lifesCount > 0 && lifesCount <= lifeElements.length) {
+        while (lifeElements.length > lifesCount) {
+            lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
+        }
     }
+
+    // хранение переменной в локальном хранилище на протяжении всех уровней
+    localStorage.setItem('lifesCount', lifesCount);
 }
 
 document.addEventListener('mousemove', function(e) {
@@ -234,25 +229,35 @@ requestAnimationFrame(gameLoop);
 function applyBonus(bonus) {
     switch(bonus) {
         case 'slowEnemies':
-            enemySpeed -= 0.5;
+            speedDowngrade += 0,5;
             break;
         case 'powerShot':
             powerShotActive = true;
             break;
         case 'extraLife':
             if (lifesCount < 5) {
-                lifesCount++;
-                updateLifeCount(lifesCount);
+                // ... почему то не работает
+                lifesCount++; 
+
+                /* ! ПРОСЬБА : СДЕЛАЙТЕ ЧТОБЫ ЭТА ШТУКА ВИЗУАЛЬНО ДОБАВЛЯЛАСЬ
+
+                    <div id="lifeContainer">
+                        <div class="life">
+                            <img src="images/heart.png">
+                        </div>
+                    </div>
+                */
+
+                //localStorage.setItem('lifesCount', lifesCount);
             }
             break;
     }
-    //moveToNextLevel();
 }
 
 function moveToNextLevel() {
     currentLevel++;
-    // secondsLeft = 30;
     requestAnimationFrame(gameLoop);
+    timerInterval = setInterval(updateTimer, 1000);
 }
 
 function showBonusSelection() {
@@ -269,7 +274,7 @@ function showBonusSelection() {
     bonusSelection.style.borderRadius = '10px';
     bonusSelection.style.textAlign = 'center';
     bonusSelection.innerHTML = `
-        <h2>Choose Your Bonus!</h2>
+        <h2>Choose Your Bonus:</h2>
         <button class="bonusButton" data-bonus="slowEnemies">Slow Down Enemies</button>
         <button class="bonusButton" data-bonus="extraLife">Extra Life</button>
         <button class="bonusButton" data-bonus="powerShot">Power Shot</button>
