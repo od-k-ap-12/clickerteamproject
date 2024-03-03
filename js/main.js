@@ -19,7 +19,7 @@ gold.classList.add('gold');
 
 gameArea.appendChild(gold); 
 
-let secondsLeft = 30; 
+let secondsLeft = 10; 
 const timer = document.getElementById('timerContainer');
 
 let lifesCount = 5;
@@ -31,6 +31,9 @@ const enemySpeed = 3;
 const spawnRate = 2000; 
 let lastSpawn = -1;
 let animationFrame = 0; 
+
+// супер удар
+let powerShotActive = false;
 
 // массив спрайтов врагов
 const enemySprites = ["images/enemy1.png", "images/enemy2.png", "images/enemy3.png"];
@@ -158,15 +161,14 @@ function gameLoop(currentTime) {
 
 function winGame() {
     if (currentLevel < maxLevel) {
-        alert('Level №' + currentLevel + ' complete! Next one is comming');
-        currentLevel++;
-        secondsLeft = 30; 
-        requestAnimationFrame(gameLoop);
+        // старт только после выбора
+        secondsLeft = 10;
+        showBonusSelection();
     } else {
         alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
-        clearInterval(timerInterval); 
-        window.cancelAnimationFrame(animationFrame); 
-        localStorage.removeItem('lifesCount'); 
+        clearInterval(timerInterval);
+        window.cancelAnimationFrame(animationFrame);
+        localStorage.removeItem('lifesCount');
     }
 }
 
@@ -188,18 +190,29 @@ function updateTimer() {
 const timerInterval = setInterval(updateTimer, 1000); 
 
 function updateLifeCount(lifesCount) {
-    if (lifesCount == 0) {
-        gameOver();
-    } else if (lifesCount > 0 && lifesCount <= lifeElements.length) {
-        while (lifeElements.length > lifesCount) {
-            lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
-        }
+    const lifeContainer = document.getElementById('lifeContainer');
+    const lifeElements = lifeContainer.getElementsByClassName('life');
+
+    // удаляем лишние сердца, если их слишком много
+    while (lifeElements.length > lifesCount) {
+        lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
     }
 
-    // хранение переменной в локальном хранилище на протяжении всех уровней
-    localStorage.setItem('lifesCount', lifesCount);
-}
+    // добавляем недостающие сердца
+    while (lifeElements.length < lifesCount) {
+        const newLife = document.createElement('div');
+        newLife.className = 'life';
+        newLife.innerHTML = '<img src="images/heart.png">';
+        lifeContainer.appendChild(newLife);
+    }
 
+    // обновляем состояние игры в локальном хранилище
+    localStorage.setItem('lifesCount', lifesCount);
+
+    if (lifesCount == 0) {
+        gameOver();
+    }
+}
 
 document.addEventListener('mousemove', function(e) {
     const dot = document.getElementById('cursorDot'); 
@@ -215,3 +228,71 @@ document.addEventListener('mousedown', shoot);
 document.addEventListener('mouseup', shootFrame);
 
 requestAnimationFrame(gameLoop);
+
+// ! БЛОК НОВЫХ МЕТОДОВ
+
+function applyBonus(bonus) {
+    switch(bonus) {
+        case 'slowEnemies':
+            enemySpeed -= 0.5;
+            break;
+        case 'powerShot':
+            powerShotActive = true;
+            break;
+        case 'extraLife':
+            if (lifesCount < 5) {
+                lifesCount++;
+                updateLifeCount(lifesCount);
+            }
+            break;
+    }
+    //moveToNextLevel();
+}
+
+function moveToNextLevel() {
+    currentLevel++;
+    // secondsLeft = 30;
+    requestAnimationFrame(gameLoop);
+}
+
+function showBonusSelection() {
+    // создание и стилизация элемента выбора плюшек
+    const bonusSelection = document.createElement('div');
+    bonusSelection.setAttribute('id', 'bonusSelection');
+    bonusSelection.style.position = 'absolute';
+    bonusSelection.style.left = '50%';
+    bonusSelection.style.top = '50%';
+    bonusSelection.style.transform = 'translate(-50%, -50%)';
+    bonusSelection.style.background = 'rgba(0, 0, 0, 0.8)';
+    bonusSelection.style.color = 'white';
+    bonusSelection.style.padding = '20px';
+    bonusSelection.style.borderRadius = '10px';
+    bonusSelection.style.textAlign = 'center';
+    bonusSelection.innerHTML = `
+        <h2>Choose Your Bonus!</h2>
+        <button class="bonusButton" data-bonus="slowEnemies">Slow Down Enemies</button>
+        <button class="bonusButton" data-bonus="extraLife">Extra Life</button>
+        <button class="bonusButton" data-bonus="powerShot">Power Shot</button>
+    `;
+    
+    // добавляем bonusSelection в gameArea
+    gameArea.appendChild(bonusSelection);
+    
+    // добавляем обработчики для кнопок выбора плюшек
+    document.querySelectorAll('.bonusButton').forEach(button => {
+        button.addEventListener('click', function() {
+            // применяем выбранный бонус
+            applyBonus(this.getAttribute('data-bonus'));
+            // удаляем элемент выбора плюшек после выбора
+            bonusSelection.remove();
+            // переходим на следующий уровень
+            moveToNextLevel();
+        });
+    });
+}
+
+
+
+
+
+
