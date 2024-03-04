@@ -144,9 +144,11 @@ function shoot(event) {
         event.clientY <= goldRect.bottom
     ) {
         updateLifeCount(-1);
-        if (lifesCount <= 0) {
-            gameOver();
-        }
+        setTimeout(() => {
+            if (lifesCount === 0) {
+                gameOver();
+            }
+        }, 500); 
     }
 }
 
@@ -202,13 +204,15 @@ function updateLifeCount(delta) {
         lifeElements[i].style.visibility = i < lifesCount ? 'visible' : 'hidden';
     }
 
-    // проверка на окончание игры
-    if (lifesCount === 0) {
-        gameOver();
-    }
+    setTimeout(() => {
+        // проверка на окончание игры
+        if (lifesCount === 0) {
+            gameOver();
+        }
 
-    // обновление переменной в локальном хранилище
-    localStorage.setItem('lifesCount', lifesCount.toString());
+        // обновление переменной в локальном хранилище
+        localStorage.setItem('lifesCount', lifesCount.toString());
+    }, 500);
 }
 
 document.addEventListener('mousemove', function(e) {
