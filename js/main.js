@@ -168,8 +168,6 @@ function gameLoop(currentTime) {
 
 function winGame() {
     if (currentLevel < maxLevel) {
-        secondsLeft = 30;
-        clearInterval(timerInterval); 
         showBonusSelection();
     } else {
         alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
@@ -194,7 +192,7 @@ function updateTimer() {
     }
 }
 
-const timerInterval = setInterval(updateTimer, 1000); 
+let timerInterval = setInterval(updateTimer, 1000); 
 
 function updateLifeCount(lifesCount) {
     if (lifesCount == 0) {
@@ -229,7 +227,7 @@ requestAnimationFrame(gameLoop);
 function applyBonus(bonus) {
     switch(bonus) {
         case 'slowEnemies':
-            speedDowngrade += 0,5;
+            speedDowngrade += 0.8; // при желании играйтесь со значением
             break;
         case 'powerShot':
             powerShotActive = true;
@@ -255,9 +253,10 @@ function applyBonus(bonus) {
 }
 
 function moveToNextLevel() {
+    secondsLeft = 30;
+    timerInterval = setInterval(updateTimer, 1000);
     currentLevel++;
     requestAnimationFrame(gameLoop);
-    timerInterval = setInterval(updateTimer, 1000);
 }
 
 function showBonusSelection() {
