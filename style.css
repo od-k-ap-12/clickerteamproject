@@ -13,7 +13,7 @@ body {
   justify-content: center;
   background: url(images/bg_blur.JPEG);
   background-size: cover;
-  cursor: none;
+  /* cursor: none; */
 }
 
 /* index.html */

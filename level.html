@@ -2,38 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Household Clicker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Household Clicker</title>
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/life.js"></script>
+  <script type="module" src="./js/timer_levels.js"></script>
+  <script type="module" src="./js/enemy.js"></script>
+  <script type="module" src="./js/bonuses.js"></script>
 </head>
 
 <body>
-    <div id="gameArea">
-        <div id="cursorDot">
-            <img class="target" src="images/target.png">
-        </div>
-        <div id="lifeContainer">
-            <div class="life">
-                <img src="images/heart.png">
-            </div>
-            <div class="life">
-                <img src="images/heart.png">
-            </div>
-            <div class="life">
-                <img src="images/heart.png">
-            </div>
-            <div class="life">
-                <img src="images/heart.png">
-            </div>
-            <div class="life">
-                <img src="images/heart.png">
-            </div>
-        </div>
-        <div id="timerContainer"><img src="images/timer.png"><span id="timeLeft">: 30 s</span></div>
+  <div id="gameArea">
+    <div id="cursorDot">
+      <img class="target" src="images/target.png">
     </div>
+    <div id="lifeContainer">
+      <div class="life">
+        <img src="images/heart.png">
+      </div>
+      <div class="life">
+        <img src="images/heart.png">
+      </div>
+      <div class="life">
+        <img src="images/heart.png">
+      </div>
+      <div class="life">
+        <img src="images/heart.png">
+      </div>
+      <div class="life">
+        <img src="images/heart.png">
+      </div>
+    </div>
+    <div id="timerContainer">
+      <img src="images/timer.png">
+      <span id="timeLeft">: 30 s</span>
+    </div>
+  </div>
 
-    <script src="js/main.js"></script>
+  <!-- <script src="js/main.js"></script> -->
 </body>
 
 </html>
