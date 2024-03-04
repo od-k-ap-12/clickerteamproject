@@ -101,8 +101,7 @@ function moveEnemies() {
             Math.abs((enemyObj.xPos + 20) - (gameArea.offsetWidth / 2 - gold.offsetWidth)) < 70 && 
             Math.abs(enemyObj.yPos - (gameArea.offsetHeight / 2 - gold.offsetHeight)) < 70  
         ){
-            lifesCount--; 
-            updateLifeCount(lifesCount);
+            updateLifeCount(-1);
 
             enemy.remove(); 
             enemies.splice(index, 1); 
@@ -144,8 +143,7 @@ function shoot(event) {
         event.clientY >= goldRect.top &&
         event.clientY <= goldRect.bottom
     ) {
-        lifesCount--;
-        updateLifeCount(lifesCount);
+        updateLifeCount(-1);
         if (lifesCount <= 0) {
             gameOver();
         }
@@ -194,17 +192,23 @@ function updateTimer() {
 
 let timerInterval = setInterval(updateTimer, 1000); 
 
-function updateLifeCount(lifesCount) {
-    if (lifesCount == 0) {
-        gameOver();
-    } else if (lifesCount > 0 && lifesCount <= lifeElements.length) {
-        while (lifeElements.length > lifesCount) {
-            lifeContainer.removeChild(lifeElements[lifeElements.length - 1]);
-        }
+function updateLifeCount(delta) {
+    // обновляем количество жизней и ограничиваем его в пределах от 0 до 5
+    lifesCount += delta;
+    lifesCount = Math.max(0, Math.min(lifesCount, 5)); // максимальное количество жизней установлено как 5
+
+    // обновляем отображение жизней
+    for (let i = 0; i < lifeElements.length; i++) {
+        lifeElements[i].style.visibility = i < lifesCount ? 'visible' : 'hidden';
     }
 
-    // хранение переменной в локальном хранилище на протяжении всех уровней
-    localStorage.setItem('lifesCount', lifesCount);
+    // проверка на окончание игры
+    if (lifesCount === 0) {
+        gameOver();
+    }
+
+    // обновление переменной в локальном хранилище
+    localStorage.setItem('lifesCount', lifesCount.toString());
 }
 
 document.addEventListener('mousemove', function(e) {
@@ -224,6 +228,8 @@ requestAnimationFrame(gameLoop);
 
 // ! БЛОК НОВЫХ МЕТОДОВ
 
+
+// ! НА МОМЕНТ ВЫБОРА БУСТА ИГОВОЕ ПОЛОТНО ДОЛЖНО БЛОКИРОВАТЬСЯ - НУЖНО СДЕЛАТЬ !!!
 function applyBonus(bonus) {
     switch(bonus) {
         case 'slowEnemies':
@@ -234,19 +240,7 @@ function applyBonus(bonus) {
             break;
         case 'extraLife':
             if (lifesCount < 5) {
-                // ... почему то не работает
-                lifesCount++; 
-
-                /* ! ПРОСЬБА : СДЕЛАЙТЕ ЧТОБЫ ЭТА ШТУКА ВИЗУАЛЬНО ДОБАВЛЯЛАСЬ
-
-                    <div id="lifeContainer">
-                        <div class="life">
-                            <img src="images/heart.png">
-                        </div>
-                    </div>
-                */
-
-                //localStorage.setItem('lifesCount', lifesCount);
+                updateLifeCount(1)
             }
             break;
     }
