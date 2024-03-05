@@ -27,12 +27,18 @@ const playHitSound = () => {
   hitSound.play();
 }
 
-const loseSound = new Audio('./audios/loseSound.mp3');
+// Звук выбора буста
+const playBonusSound = () => {
+  const bonusSound = new Audio('./audios/pickBonus.mp3');
+  //bonusSound.volume = 0.3;
+  bonusSound.play();
+}
 
-// Звук поразки
+// Звук проигрыша
+const loseSound = new Audio('./audios/loseSound.mp3');
 const playLoseSound = () => {
   loseSound.volume = 0.5;
   loseSound.play();
 }
 
-export { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound };
+export { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound, playBonusSound };

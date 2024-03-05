@@ -1,6 +1,7 @@
 import { lifesCount, updateLifeCount } from "./life.js";
 import { moveToNextLevel } from "./timer_levels.js";
 import { enemies } from "./enemy.js";
+import { playBonusSound } from "./audio.js";
 
 let isBonusSelection = false;
 
@@ -61,6 +62,7 @@ function showBonusSelection() {
   // добавляем обработчики для кнопок выбора плюшек
   document.querySelectorAll('.bonusButton').forEach(button => {
     button.addEventListener('click', function () {
+      playBonusSound();
       applyBonus(this.getAttribute('data-bonus'));  // применяем выбранный бонус
       bonusSelection.remove();
       moveToNextLevel();
