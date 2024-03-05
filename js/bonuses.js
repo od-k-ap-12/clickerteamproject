@@ -1,7 +1,7 @@
 import { lifesCount, updateLifeCount } from "./life.js";
 import { currentLevel, moveToNextLevel } from "./timer_levels.js";
 import { enemies } from "./enemy.js";
-import { playBonusSound } from "./audio.js";
+import { playBonusSound, playShootSound } from "./audio.js";
 
 let isBonusSelection = false;
 
@@ -77,6 +77,7 @@ function autoDestroyEnemies() {
       if (Math.random() < (0.005 + currentLevel * 0.001)) {
           enemyObj.hitPoints = 0;
           enemyObj.element.remove(); 
+          playShootSound();
           enemies.splice(index, 1); 
       }
   });
