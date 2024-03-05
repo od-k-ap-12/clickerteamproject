@@ -26,6 +26,20 @@ function applyBonus(bonus) {
   isBonusSelection = false;
 }
 
+const autoClickTip = document.createElement('div');
+    autoClickTip.className = 'tip';
+    autoClickTip.setAttribute('id', 'autoClickTip');
+
+    autoClickTip.innerHTML = `
+      <div class="autoClickTip">
+        <h3>Congratulations!</h3>
+        <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
+        <p>It should help you a lot.</p>
+        <p>But don't stop keeping attention to your enemies.</p>
+        <p>Good luck!</p>
+      </div>
+    `;
+
 function showBonusSelection() {
   isBonusSelection = true;
   // создание и стилизация элемента выбора плюшек
@@ -61,19 +75,19 @@ function showBonusSelection() {
 
   if(currentLevel == 2)
   {
-    const autoClickTip = document.createElement('div');
-    autoClickTip.className = 'tip';
-    autoClickTip.setAttribute('id', 'autoClickTip');
+    // const autoClickTip = document.createElement('div');
+    // autoClickTip.className = 'tip';
+    // autoClickTip.setAttribute('id', 'autoClickTip');
 
-    autoClickTip.innerHTML = `
-      <div class="autoClickTip">
-        <h3>Congratulations!</h3>
-        <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
-        <p>It should help you a lot.</p>
-        <p>But don't stop keeping attention to your enemies.</p>
-        <p>Good luck!</p>
-      </div>
-    `;
+    // autoClickTip.innerHTML = `
+    //   <div class="autoClickTip">
+    //     <h3>Congratulations!</h3>
+    //     <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
+    //     <p>It should help you a lot.</p>
+    //     <p>But don't stop keeping attention to your enemies.</p>
+    //     <p>Good luck!</p>
+    //   </div>
+    // `;
     gameArea.appendChild(autoClickTip);
   }
 
@@ -83,9 +97,12 @@ function showBonusSelection() {
       playBonusSound();
       applyBonus(this.getAttribute('data-bonus'));  // применяем выбранный бонус
       bonusSelection.remove();
+      autoClickTip.remove();
       moveToNextLevel();
     });
   });
+  
+
 }
 
 // Автоклік - відкривається з 3-го рівня
