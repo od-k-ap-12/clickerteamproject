@@ -1,5 +1,5 @@
 import { lifesCount, updateLifeCount } from './life.js';
-import { secondsLeft, timerInterval, currentLevel, maxLevel } from './timer_levels.js';
+import { secondsLeft, timerInterval, currentLevel, moveToNextLevel } from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies } from './enemy.js';
 import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies } from './bonuses.js';
 import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
@@ -90,7 +90,7 @@ function shoot(event) {
 
 export function gameLoop(currentTime) {
 
-    if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 250)) {
+    if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 150)) {
         createEnemy();
         lastSpawn = currentTime;
     }
@@ -102,26 +102,9 @@ export function gameLoop(currentTime) {
 
     if (lifesCount > 0 && secondsLeft > 0) {
         requestAnimationFrame(gameLoop);
-    } else if (lifesCount > 0) {
-        winGame();
-    }
-}
-
-function winGame() {
-    if (currentLevel < maxLevel) {
+    } 
+    else if (lifesCount > 0) {
         showBonusSelection();
-    } else {
-        alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
-        clearInterval(timerInterval);
-        localStorage.removeItem('lifesCount');
-
-        currentLevel = 1;
-        speedDowngrade = 0;
-        updateLifeCount(5);
-        powerShotActive = false;
-        secondsLeft = 30;
-        timerInterval = setInterval(updateTimer, 1000);
-        requestAnimationFrame(gameLoop);
     }
 }
 
@@ -130,7 +113,6 @@ export function gameOver() {
     playMusic.textContent = 'MUSIC ON';
     playLoseSound();
     clearInterval(timerInterval);
-    //alert('Game Over!');         // alert блокує програвач аудіо
     localStorage.removeItem('lifesCount');
 
     currentLevel = 1;

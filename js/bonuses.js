@@ -1,5 +1,5 @@
 import { lifesCount, updateLifeCount } from "./life.js";
-import { moveToNextLevel } from "./timer_levels.js";
+import { currentLevel, moveToNextLevel } from "./timer_levels.js";
 import { enemies } from "./enemy.js";
 import { playBonusSound } from "./audio.js";
 
@@ -12,7 +12,7 @@ let powerShotActive = false;   // супер удар
 function applyBonus(bonus) {
   switch (bonus) {
     case 'slowEnemies':
-      speedDowngrade += 0.8; // при желании играйтесь со значением
+      speedDowngrade += 1; // при желании играйтесь со значением
       break;
     case 'powerShot':
       powerShotActive = true;
@@ -74,7 +74,7 @@ function showBonusSelection() {
 function autoDestroyEnemies() {
   enemies.forEach((enemyObj, index) => {
       // можно играться со значением при желании
-      if (Math.random() < 0.006) { //
+      if (Math.random() < (0.005 + currentLevel * 0.001)) {
           enemyObj.hitPoints = 0;
           enemyObj.element.remove(); 
           enemies.splice(index, 1); 

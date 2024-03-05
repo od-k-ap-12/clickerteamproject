@@ -120,7 +120,6 @@ body {
   display: flex;
   align-items: center;
 }
-
 .life {
   vertical-align: middle;
   width: 32px;
@@ -133,7 +132,6 @@ body {
   display: block;
   width: 100%;
 }
-
 #playMusic {
   width: 150px;
   left: 45%;
@@ -143,6 +141,20 @@ body {
 }
 #playMusic:hover {
   background-color: rgba(172, 148, 120, 0.7);
+}
+.current-level{
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(232, 210, 184, 0.7);
+  padding: 10px 15px ;
+  color: rgb(84, 67, 48);
+  font: 500 26px "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 /* хб enemy3: 283x180; сделать +5 для стороны

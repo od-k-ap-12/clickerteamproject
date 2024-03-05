@@ -5,7 +5,6 @@ let timerInterval = setInterval(updateTimer, 1000);
 
 // Переменные уровней
 let currentLevel = 1;
-const maxLevel = 5;
 
 function updateTimer() {
   if (secondsLeft > 0) {
@@ -20,7 +19,8 @@ function moveToNextLevel() {
   secondsLeft = 15;
   timerInterval = setInterval(updateTimer, 1000);
   currentLevel++;
+  document.getElementById('level').textContent = 'Level: ' + currentLevel;
   requestAnimationFrame(gameLoop);
 }
 
-export { secondsLeft, timerInterval, currentLevel, maxLevel, moveToNextLevel }
+export { secondsLeft, timerInterval, currentLevel, moveToNextLevel }
