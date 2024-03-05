@@ -2,7 +2,7 @@ import { lifesCount, updateLifeCount } from './life.js';
 import { secondsLeft, timerInterval, currentLevel, maxLevel } from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies } from './enemy.js';
 import { powerShotActive, showBonusSelection, isBonusSelection } from './bonuses.js';
-import { backgroundMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
+import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
 
 const gameArea = document.getElementById('gameArea');
 
@@ -116,6 +116,7 @@ function winGame() {
 
 export function gameOver() {
     backgroundMusic.pause();
+    playMusic.textContent = 'MUSIC ON';
     playLoseSound();
     clearInterval(timerInterval);
     //alert('Game Over!');         // alert блокує програвач аудіо

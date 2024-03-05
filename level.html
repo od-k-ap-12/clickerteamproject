@@ -16,36 +16,41 @@
 </head>
 
 <body>
+
   <div id="gameArea">
+    <div class="info-panel">
+      <div id="lifeContainer">
+        <div class="life">
+          <img src="images/heart.png">
+        </div>
+        <div class="life">
+          <img src="images/heart.png">
+        </div>
+        <div class="life">
+          <img src="images/heart.png">
+        </div>
+        <div class="life">
+          <img src="images/heart.png">
+        </div>
+        <div class="life">
+          <img src="images/heart.png">
+        </div>
+      </div>
+      <button id="playMusic">MUSIC ON</button>
+      <div id="timerContainer">
+        <img src="images/timer.png">
+        <span id="timeLeft">: 30 s</span>
+      </div>
+    </div>
+
     <div id="cursorDot">
       <img class="target" src="images/target.png">
     </div>
-    <div id="lifeContainer">
-      <div class="life">
-        <img src="images/heart.png">
-      </div>
-      <div class="life">
-        <img src="images/heart.png">
-      </div>
-      <div class="life">
-        <img src="images/heart.png">
-      </div>
-      <div class="life">
-        <img src="images/heart.png">
-      </div>
-      <div class="life">
-        <img src="images/heart.png">
-      </div>
-    </div>
-    <div id="timerContainer">
-      <img src="images/timer.png">
-      <span id="timeLeft">: 30 s</span>
-    </div>
-    <audio id="backgroundMusic" autoplay loop>
+
+    <audio id="backgroundMusic" loop>
       <source src="./audios/background.mp3" type="audio/mpeg">
     </audio>
   </div>
 
 </body>
-
 </html>

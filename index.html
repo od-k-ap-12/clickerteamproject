@@ -7,28 +7,16 @@
   <title>Household Clicker</title>
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
-  <script type="module" src="./js/audio.js"></script>
-  <script type="module" src="./js/main.js"></script>
-  <!-- <script type="module" src="./js/life.js"></script>
-  <script type="module" src="./js/timer_levels.js"></script>
-  <script type="module" src="./js/enemy.js"></script>
-  <script type="module" src="./js/bonuses.js"></script> -->
 </head>
 
 <body>
   <a href="level.html" class="start-game" id="link">Start</a>
-  <audio id="backgroundMusic" autoplay loop>
-    <source src="./audios/background.mp3" type="audio/mpeg">
-  </audio>
 
-  <script type="module">
-    import {backgroundMusic} from './js/audio.js';
+  <script>
 
     document.addEventListener('keydown', function (event) {
-      backgroundMusic.play();
       var link = document.getElementById('link');
       link.click();
-      
     });
   </script>
 </body>

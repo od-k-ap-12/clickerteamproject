@@ -2,6 +2,18 @@
 const backgroundMusic = document.getElementById('backgroundMusic');
 backgroundMusic.volume = 0.3;
 
+const playMusic = document.getElementById('playMusic');
+
+playMusic.addEventListener('click', () => {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play();
+    playMusic.textContent = 'MUSIC OFF';
+  } else {
+    backgroundMusic.pause();
+    playMusic.textContent = 'MUSIC ON';
+  }
+});
+
 // Звук выстрела
 const playShootSound = () => {
   const shootSound = new Audio('./audios/shootSound.mp3');
@@ -23,4 +35,4 @@ const playLoseSound = () => {
   loseSound.play();
 }
 
-export { backgroundMusic, playShootSound, playHitSound, playLoseSound };
+export { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound };
