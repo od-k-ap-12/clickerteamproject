@@ -1,7 +1,7 @@
 import { lifesCount, updateLifeCount } from './life.js';
 import { secondsLeft, timerInterval, currentLevel, maxLevel } from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies } from './enemy.js';
-import { powerShotActive, showBonusSelection, isBonusSelection } from './bonuses.js';
+import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies } from './bonuses.js';
 import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
 
 const gameArea = document.getElementById('gameArea');
@@ -23,7 +23,7 @@ gold.classList.add('gold');
 gameArea.appendChild(gold);
 
 // Переменные для обновления состояние игры
-const spawnRate = 2000;
+let spawnRate = 2000;
 let lastSpawn = -1;
 let animationFrame = 0;
 
@@ -88,19 +88,9 @@ function shoot(event) {
     }
 }
 
-function autoDestroyEnemies() {
-    enemies.forEach((enemyObj, index) => {
-        // можно играться со значением при желании
-        if (Math.random() < 0.001) { //
-            enemyObj.hitPoints = 0;
-            enemyObj.element.remove(); 
-            enemies.splice(index, 1); 
-        }
-    });
-}
-
 export function gameLoop(currentTime) {
-    if (lastSpawn === -1 || currentTime - lastSpawn > spawnRate) {
+
+    if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 250)) {
         createEnemy();
         lastSpawn = currentTime;
     }

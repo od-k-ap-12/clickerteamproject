@@ -1,5 +1,6 @@
 import { lifesCount, updateLifeCount } from "./life.js";
 import { moveToNextLevel } from "./timer_levels.js";
+import { enemies } from "./enemy.js";
 
 let isBonusSelection = false;
 
@@ -67,4 +68,16 @@ function showBonusSelection() {
   });
 }
 
-export { powerShotActive, speedDowngrade, showBonusSelection, isBonusSelection };
+//Автоклік - відкривається з 3 рівня
+function autoDestroyEnemies() {
+  enemies.forEach((enemyObj, index) => {
+      // можно играться со значением при желании
+      if (Math.random() < 0.006) { //
+          enemyObj.hitPoints = 0;
+          enemyObj.element.remove(); 
+          enemies.splice(index, 1); 
+      }
+  });
+}
+
+export { powerShotActive, speedDowngrade, showBonusSelection, isBonusSelection, autoDestroyEnemies};

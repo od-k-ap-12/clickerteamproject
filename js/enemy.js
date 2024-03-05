@@ -40,7 +40,7 @@ function createEnemy() {
 
 function moveEnemies() {
     // изменение скорости в зависимости от уровня и приминения бонуса
-    const levelSpeed = (enemySpeed - speedDowngrade) + (currentLevel - 1) * 0.5;
+    const levelSpeed = (enemySpeed - speedDowngrade) + (currentLevel - 1) * 1.5;
 
     enemies.forEach((enemyObj, index) => {
         const enemy = enemyObj.element;

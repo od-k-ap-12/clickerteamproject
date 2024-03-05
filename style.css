@@ -193,8 +193,12 @@ body {
   height: 100px;
   padding: 8px;
   background-color: #e0d1bd;
+  border-radius: 10px;
+  border: none;
 }
-
+.bonusButton:hover {
+  background-color: #a89781;
+}
 .bonusButton img {
   display: block;
   width: 100%;
