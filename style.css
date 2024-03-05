@@ -226,3 +226,32 @@ body {
   font-weight: 400;
   color: rgb(247, 238, 226);
 }
+.tip{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 65px;
+  color: rgb(247, 238, 226);
+  background-color: rgba(158, 141, 122, 0.7);
+  font: 500 20px "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.tip h3{
+  font-size: 24px;
+  text-align: center;
+  color:rgba(237, 218, 197, 0.7);
+  margin-bottom: 10px;
+}
+.tip p{
+  color: rgba(46, 40, 32, 0.7);
+}
+.tip span{
+  font-weight: 700;
+  font-size: 24px;
+  color: rgba(24, 20, 16, 0.7);
+}

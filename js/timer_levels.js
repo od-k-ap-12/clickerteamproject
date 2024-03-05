@@ -26,6 +26,7 @@ function moveToNextLevel() {
     // createBoss();
     secondsLeft = 60;
   }
+  
   requestAnimationFrame(gameLoop);
 }
 
