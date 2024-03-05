@@ -1,63 +1,72 @@
 import { lifesCount, updateLifeCount } from "./life.js";
 import { moveToNextLevel } from "./timer_levels.js";
 
-//замедление врагов
-let speedDowngrade = 0;
+let isBonusSelection = false;
 
-// супер удар
-let powerShotActive = false;
+let speedDowngrade = 0;   //замедление врагов
+
+let powerShotActive = false;   // супер удар
 
 //! НА МОМЕНТ ВЫБОРА БУСТА ИГОВОЕ ПОЛОТНО ДОЛЖНО БЛОКИРОВАТЬСЯ - НУЖНО СДЕЛАТЬ !!!
 // (комент залишаю, хоча цієї проблеми не помітила)
 function applyBonus(bonus) {
-  switch(bonus) {
-      case 'slowEnemies':
-          speedDowngrade += 0.8; // при желании играйтесь со значением
-          break;
-      case 'powerShot':
-          powerShotActive = true;
-          break;
-      case 'extraLife':
-          if (lifesCount < 5) {
-              updateLifeCount(1)
-          }
-          break;
+  switch (bonus) {
+    case 'slowEnemies':
+      speedDowngrade += 0.8; // при желании играйтесь со значением
+      break;
+    case 'powerShot':
+      powerShotActive = true;
+      break;
+    case 'extraLife':
+      if (lifesCount < 5) {
+        updateLifeCount(1)
+      }
+      break;
   }
+  isBonusSelection = false;
 }
 
 function showBonusSelection() {
+  isBonusSelection = true;
   // создание и стилизация элемента выбора плюшек
   const bonusSelection = document.createElement('div');
+  bonusSelection.className = 'bonusSelection';
   bonusSelection.setAttribute('id', 'bonusSelection');
-  bonusSelection.style.position = 'absolute';
-  bonusSelection.style.left = '50%';
-  bonusSelection.style.top = '50%';
-  bonusSelection.style.transform = 'translate(-50%, -50%)';
-  bonusSelection.style.background = 'rgba(0, 0, 0, 0.8)';
-  bonusSelection.style.color = 'white';
-  bonusSelection.style.padding = '20px';
-  bonusSelection.style.borderRadius = '10px';
-  bonusSelection.style.textAlign = 'center';
+
   bonusSelection.innerHTML = `
-      <h2>Choose Your Bonus:</h2>
-      <button class="bonusButton" data-bonus="slowEnemies">Slow Down Enemies</button>
-      <button class="bonusButton" data-bonus="extraLife">Extra Life</button>
-      <button class="bonusButton" data-bonus="powerShot">Power Shot</button>
+      <h2 class="bonusTitle">Choose Your Bonus:</h2>
+      <div class="container">
+        <div class="bonus-container">
+            <button class="bonusButton" data-bonus="slowEnemies">
+                <img src="images/target.png">
+            </button>
+            <p class="bonusName">Slow Down Enemies</p>
+        </div>
+        <div class="bonus-container">
+            <button class="bonusButton" data-bonus="extraLife">
+                <img src="images/target.png">
+            </button>
+            <p class="bonusName">Extra Life</p>
+        </div>
+        <div class="bonus-container">
+            <button class="bonusButton" data-bonus="powerShot">
+                <img src="images/target.png">
+            </button>
+            <p class="bonusName">Power Shot</p>
+        </div>
+      </div>
   `;
-  
+
   // добавляем bonusSelection в gameArea
   gameArea.appendChild(bonusSelection);
-  
   // добавляем обработчики для кнопок выбора плюшек
   document.querySelectorAll('.bonusButton').forEach(button => {
-      button.addEventListener('click', function() {
-          // применяем выбранный бонус
-          applyBonus(this.getAttribute('data-bonus'));
-          // удаляем элемент выбора плюшек после выбора
-          bonusSelection.remove();
-          // переходим на следующий уровень
-          moveToNextLevel();
-      });
+    button.addEventListener('click', function () {
+      applyBonus(this.getAttribute('data-bonus'));  // применяем выбранный бонус
+      bonusSelection.remove();
+      moveToNextLevel();
+    });
   });
 }
-export {powerShotActive, speedDowngrade, showBonusSelection};
+
+export { powerShotActive, speedDowngrade, showBonusSelection, isBonusSelection };

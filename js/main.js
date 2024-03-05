@@ -1,7 +1,7 @@
 import { lifesCount, updateLifeCount } from './life.js';
 import { secondsLeft, timerInterval, currentLevel, maxLevel } from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies } from './enemy.js';
-import { powerShotActive, showBonusSelection  } from './bonuses.js';
+import { powerShotActive, showBonusSelection, isBonusSelection  } from './bonuses.js';
 
 const gameArea = document.getElementById('gameArea');
 
@@ -72,7 +72,8 @@ function shoot(event) {
         event.clientX >= goldRect.left &&
         event.clientX <= goldRect.right &&
         event.clientY >= goldRect.top &&
-        event.clientY <= goldRect.bottom
+        event.clientY <= goldRect.bottom &&
+        !isBonusSelection
     ) {
         updateLifeCount(-1);
         setTimeout(() => {

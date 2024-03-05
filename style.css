@@ -132,3 +132,45 @@ body {
   height: 185px;
   position: absolute;
 }
+.bonusSelection{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(19, 32, 19, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  gap: 20px;
+}
+.bonusTitle{
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  font-weight: 500; 
+}
+.container{
+  display: flex;
+}
+.bonus-container{
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.bonusButton{
+  width: 100px;
+  height: 100px;
+}
+.bonusButton img{
+  display: block;
+  width: 100%;
+}
+.bonusName{
+  font-family: "Rubik", sans-serif;
+  font-size: 18px;
+  font-weight: 400; 
+}

@@ -1,6 +1,6 @@
 import { gameLoop } from './main.js';
 
-let secondsLeft = 30;
+let secondsLeft = 10;   // повернути на 30 назад
 let timerInterval = setInterval(updateTimer, 1000);
 
 // Переменные уровней
@@ -17,7 +17,7 @@ function updateTimer() {
 }
 
 function moveToNextLevel() {
-  secondsLeft = 30;
+  secondsLeft = 10;  // повернути на 30 назад
   timerInterval = setInterval(updateTimer, 1000);
   currentLevel++;
   requestAnimationFrame(gameLoop);
