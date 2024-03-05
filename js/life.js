@@ -1,3 +1,5 @@
+import {gameOver} from './main.js';
+
 let lifesCount = 5;
 var lifeContainer = document.getElementById('lifeContainer');
 var lifeElements = lifeContainer.getElementsByClassName('life');
