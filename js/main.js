@@ -88,12 +88,27 @@ function shoot(event) {
     }
 }
 
+function autoDestroyEnemies() {
+    enemies.forEach((enemyObj, index) => {
+        // можно играться со значением при желании
+        if (Math.random() < 0.001) { //
+            enemyObj.hitPoints = 0;
+            enemyObj.element.remove(); 
+            enemies.splice(index, 1); 
+        }
+    });
+}
+
 export function gameLoop(currentTime) {
     if (lastSpawn === -1 || currentTime - lastSpawn > spawnRate) {
         createEnemy();
         lastSpawn = currentTime;
     }
     moveEnemies();
+
+    if (currentLevel >= 3) {
+        autoDestroyEnemies(); 
+    }
 
     if (lifesCount > 0 && secondsLeft > 0) {
         requestAnimationFrame(gameLoop);
@@ -102,15 +117,21 @@ export function gameLoop(currentTime) {
     }
 }
 
-// Переробити на зациклення
 function winGame() {
     if (currentLevel < maxLevel) {
         showBonusSelection();
     } else {
         alert('YOU WON IT! YOU SAVE IT! YOU DONE IT!');
         clearInterval(timerInterval);
-        window.cancelAnimationFrame(animationFrame);
         localStorage.removeItem('lifesCount');
+
+        currentLevel = 1;
+        speedDowngrade = 0;
+        updateLifeCount(5);
+        powerShotActive = false;
+        secondsLeft = 30;
+        timerInterval = setInterval(updateTimer, 1000);
+        requestAnimationFrame(gameLoop);
     }
 }
 
@@ -121,6 +142,14 @@ export function gameOver() {
     clearInterval(timerInterval);
     //alert('Game Over!');         // alert блокує програвач аудіо
     localStorage.removeItem('lifesCount');
+
+    currentLevel = 1;
+    speedDowngrade = 0;
+    updateLifeCount(5);
+    powerShotActive = false;
+    secondsLeft = 30;
+    timerInterval = setInterval(updateTimer, 1000);
+    requestAnimationFrame(gameLoop);
 }
 
 document.addEventListener('mousemove', function (e) {
