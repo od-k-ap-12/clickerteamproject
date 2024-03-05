@@ -139,7 +139,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(19, 32, 19, 0.8);
+  background: rgba(56, 62, 37, 0.8);
   color: white;
   padding: 20px;
   border-radius: 10px;
@@ -150,6 +150,7 @@ body {
   font-family: "Rubik", sans-serif;
   font-size: 24px;
   font-weight: 500; 
+  color:rgb(247, 238, 226);
 }
 .container{
   display: flex;
@@ -164,6 +165,8 @@ body {
 .bonusButton{
   width: 100px;
   height: 100px;
+  padding: 8px;
+  background-color: #e0d1bd;
 }
 .bonusButton img{
   display: block;
@@ -172,5 +175,6 @@ body {
 .bonusName{
   font-family: "Rubik", sans-serif;
   font-size: 18px;
-  font-weight: 400; 
+  font-weight: 400;
+  color:rgb(247, 238, 226); 
 }

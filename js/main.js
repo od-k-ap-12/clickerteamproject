@@ -27,12 +27,6 @@ let animationFrame = 0;
 
 
 function idleFrame(){
-    gameArea.style.background="url(images/background2.jpg)";
-    gameArea.style.backgroundSize="cover";
-    gameArea.style.backgroundPosition= "center";
-}
-
-function shootFrame(){
     setTimeout(()=>{
         gameArea.style.background="url(images/background1.jpg)";
         gameArea.style.backgroundSize="cover";
@@ -40,8 +34,14 @@ function shootFrame(){
     },200);
 }
 
+function shootFrame(){
+    gameArea.style.background="url(images/background2.jpg)";
+    gameArea.style.backgroundSize="cover";
+    gameArea.style.backgroundPosition= "center";
+}
+
 function shoot(event) {
-    idleFrame();
+    shootFrame();
     enemies.forEach((enemyObj, index) => {
         const rect = enemyObj.element.getBoundingClientRect();
 
@@ -126,7 +126,7 @@ document.addEventListener('mousemove', function(e) {
 });
 
 document.addEventListener('mousedown', shoot);
-document.addEventListener('mouseup', shootFrame);
+document.addEventListener('mouseup', idleFrame);
 
 requestAnimationFrame(gameLoop);
 
