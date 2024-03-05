@@ -26,20 +26,6 @@ function applyBonus(bonus) {
   isBonusSelection = false;
 }
 
-const autoClickTip = document.createElement('div');
-    autoClickTip.className = 'tip';
-    autoClickTip.setAttribute('id', 'autoClickTip');
-
-    autoClickTip.innerHTML = `
-      <div class="autoClickTip">
-        <h3>Congratulations!</h3>
-        <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
-        <p>It should help you a lot.</p>
-        <p>But don't stop keeping attention to your enemies.</p>
-        <p>Good luck!</p>
-      </div>
-    `;
-
 function showBonusSelection() {
   isBonusSelection = true;
   // создание и стилизация элемента выбора плюшек
@@ -70,25 +56,25 @@ function showBonusSelection() {
         </div>
       </div>
   `;
-  // добавляем bonusSelection в gameArea
-  gameArea.appendChild(bonusSelection);
+  gameArea.appendChild(bonusSelection); // добавляем bonusSelection в gameArea
 
-  if(currentLevel == 2)
-  {
-    // const autoClickTip = document.createElement('div');
-    // autoClickTip.className = 'tip';
-    // autoClickTip.setAttribute('id', 'autoClickTip');
+  // создание и стилизация элемента подсказки к появлению автоклика
+  const autoClickTip = document.createElement('div');
+    autoClickTip.className = 'tip';
+    autoClickTip.setAttribute('id', 'autoClickTip');
 
-    // autoClickTip.innerHTML = `
-    //   <div class="autoClickTip">
-    //     <h3>Congratulations!</h3>
-    //     <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
-    //     <p>It should help you a lot.</p>
-    //     <p>But don't stop keeping attention to your enemies.</p>
-    //     <p>Good luck!</p>
-    //   </div>
-    // `;
-    gameArea.appendChild(autoClickTip);
+    autoClickTip.innerHTML = `
+      <div class="autoClickTip">
+        <h3>Congratulations!</h3>
+        <p>From level 3 you unlocked the ability to use <span>autoclick<span>. 
+        <p>It should help you a lot.</p>
+        <p>But don't stop keeping attention to your enemies.</p>
+        <p>Good luck!</p>
+      </div>
+    `;
+
+  if(currentLevel == 2){
+    gameArea.appendChild(autoClickTip); // добавляем autoClickTip в gameArea
   }
 
   // добавляем обработчики для кнопок выбора плюшек
@@ -101,7 +87,6 @@ function showBonusSelection() {
       moveToNextLevel();
     });
   });
-  
 
 }
 
