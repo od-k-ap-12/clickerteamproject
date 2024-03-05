@@ -64,4 +64,58 @@ function moveEnemies() {
         }
     });
 }
+
+// Те ж саме для боса
+
+// let boss = document.createElement('div');
+// boss.className = 'boss';
+
+// function createBoss() {
+//     let boss = document.createElement('div');
+//     boss.className = 'boss';
+//     boss.hitPoints = 100;   // можливо це не так виставляється
+
+//     var spriteBoss = document.createElement('img');
+//     spriteBoss.src = './images/enemy3.png';   // сюди спрайт босса
+
+//     let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 95);
+//     boss.style.top = yPos + 'px';
+
+//     let x = Math.random(), xPos;
+
+//     if (x < 0.5) {
+//         xPos = -200;
+//         boss.style.transform = 'scaleX(-1)';
+//     }
+//     else {
+//         xPos = gameArea.offsetWidth - 30;
+//         boss.style.transform = 'scaleX(1)';
+//     }
+
+//     boss.style.left = xPos + 'px';
+//     boss.appendChild(spriteBoss);
+//     gameArea.appendChild(boss);
+// }
+
+// function moveBoss() {
+//     // швидкість для боса
+//     const levelSpeed = 0.1;
+
+//     if (boss.xPos < gameArea.offsetWidth / 2) {
+//         boss.xPos += levelSpeed;
+//     }
+//     else {
+//         boss.xPos -= levelSpeed;
+//     }
+//     boss.style.left = boss.xPos + 'px';
+
+//     if (
+//         Math.abs((boss.xPos + 20) - (gameArea.offsetWidth / 2 - gold.offsetWidth)) < 70 &&
+//         Math.abs(boss.yPos - (gameArea.offsetHeight / 2 - gold.offsetHeight)) < 70
+//     ) {
+//         playHitSound();
+//         updateLifeCount(-5); // одразу програш, якщо бос дійде до дерева
+//     }
+// }
+
 export { createEnemy, moveEnemies, enemies };

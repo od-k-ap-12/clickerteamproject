@@ -165,7 +165,12 @@ body {
   height: 185px;
   position: absolute;
 }
-
+.boss{
+  width: 350px;
+  height: 200px;
+  background-color: black;
+  position: absolute;
+}
 .bonusSelection {
   display: flex;
   flex-direction: column;

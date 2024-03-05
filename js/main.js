@@ -1,6 +1,6 @@
 import { lifesCount, updateLifeCount } from './life.js';
 import { secondsLeft, timerInterval, currentLevel, moveToNextLevel } from './timer_levels.js';
-import { createEnemy, moveEnemies, enemies } from './enemy.js';
+import { createEnemy, moveEnemies, enemies} from './enemy.js';
 import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies } from './bonuses.js';
 import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
 
@@ -89,20 +89,32 @@ function shoot(event) {
 }
 
 export function gameLoop(currentTime) {
+    if (currentLevel % 5 != 0) {
+        if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 150)) {
+            createEnemy();
+            lastSpawn = currentTime;
+        }
+        moveEnemies();
 
-    if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 150)) {
-        createEnemy();
-        lastSpawn = currentTime;
+        if (currentLevel >= 3) {
+            autoDestroyEnemies();
+        }
     }
-    moveEnemies();
+    else{
+        if (lastSpawn === -1 || currentTime - lastSpawn > spawnRate) {
+            createEnemy();
+            lastSpawn = currentTime;
+        }
+        moveEnemies();
+        autoDestroyEnemies();
 
-    if (currentLevel >= 3) {
-        autoDestroyEnemies(); 
+        // moveBoss();  // не працює
+        
     }
 
     if (lifesCount > 0 && secondsLeft > 0) {
         requestAnimationFrame(gameLoop);
-    } 
+    }
     else if (lifesCount > 0) {
         showBonusSelection();
     }

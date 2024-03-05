@@ -70,17 +70,29 @@ function showBonusSelection() {
   });
 }
 
-//Автоклік - відкривається з 3 рівня
+// Автоклік - відкривається з 3-го рівня
 function autoDestroyEnemies() {
   enemies.forEach((enemyObj, index) => {
-      // можно играться со значением при желании
-      if (Math.random() < (0.005 + currentLevel * 0.001)) {
-          enemyObj.hitPoints = 0;
-          enemyObj.element.remove(); 
-          playShootSound();
-          enemies.splice(index, 1); 
+    if (currentLevel % 5 != 0) 
+    {
+      if (Math.random() < (0.005 + currentLevel * 0.001)) // можно играться со значением при желании
+      {
+        enemyObj.hitPoints = 0;
+        enemyObj.element.remove();
+        playShootSound();
+        enemies.splice(index, 1);
       }
+    }
+    else{
+      if (Math.random() < 0.1) // більша ймовірність вбити маленьку тварюку
+      {
+        enemyObj.hitPoints = 0;
+        enemyObj.element.remove();
+        playShootSound();
+        enemies.splice(index, 1);
+      }
+    }
   });
 }
 
-export { powerShotActive, speedDowngrade, showBonusSelection, isBonusSelection, autoDestroyEnemies};
+export { powerShotActive, speedDowngrade, showBonusSelection, isBonusSelection, autoDestroyEnemies };
