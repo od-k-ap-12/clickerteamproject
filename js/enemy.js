@@ -18,6 +18,7 @@ class Enemy{
 
 function EnemyFactory(){
      let enemy=new Enemy();
+     // рандом спрайта для врага
      enemy.spriteIndex = Math.floor(Math.random() * enemySprites.length);
      return enemy;
 }
@@ -28,8 +29,6 @@ function createEnemy() {
     enemy.className = 'enemy';
 
     var spriteEnemy = document.createElement('img');
-    // рандом спрайта для врага
-    const randomIndex = Math.floor(Math.random() * enemySprites.length);
     spriteEnemy.src = enemySprites[enemyObj.spriteIndex];
 
     let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 95);
@@ -56,10 +55,8 @@ function createBoss() {
     let enemy = document.createElement('div');
     enemy.className = 'enemy';
     enemy.classList.add('boss');
-    // enemy.classList.add('enemy');
-    console.log(enemy.classList.contains('boss'));
+    
     var spriteEnemy = document.createElement('img');
-
     spriteEnemy.src = "images/boss.png";
 
     let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 95);
@@ -124,6 +121,5 @@ function moveEnemies() {
         }
     });
 }
-
 
 export { createEnemy, moveEnemies, enemies, createBoss };
