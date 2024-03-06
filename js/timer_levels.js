@@ -30,4 +30,4 @@ function moveToNextLevel() {
   requestAnimationFrame(gameLoop);
 }
 
-export { secondsLeft, timerInterval, currentLevel, moveToNextLevel }
+export { secondsLeft, timerInterval, currentLevel, moveToNextLevel,updateTimer }

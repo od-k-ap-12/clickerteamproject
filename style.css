@@ -199,7 +199,21 @@ body {
   height: 200px;
   position: absolute;
 }
-.bonusSelection {
+.bonusSelection{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(56, 62, 37, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  gap: 20px;
+}
+.gameOver_section{
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -231,6 +245,39 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+.gameover-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+  gap: 10px;
+}
+.gameover-title{
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(247, 238, 226);
+}
+.gameover-wrap img{
+  border-radius: 10px;
+  height: 200px;
+}
+#retry{
+  width: inherit;
+  height: 50px;
+  padding: 8px 40px;
+  background-color: #e0d1bd;
+  border-radius: 10px;
+  border: none;
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(68, 47, 44);
+}
+#retry:hover{
+  background-color: #a18f76;
 }
 
 .bonusButton {

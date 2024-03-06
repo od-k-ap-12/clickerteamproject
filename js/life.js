@@ -1,4 +1,4 @@
-import {gameOver} from './main.js';
+import {gameOver,gameOver_screen} from './main.js';
 
 let lifesCount = 5;
 var lifeContainer = document.getElementById('lifeContainer');
@@ -17,6 +17,7 @@ function updateLifeCount(delta) {
   setTimeout(() => {
       // проверка на окончание игры
       if (lifesCount === 0) {
+          gameOver_screen();
           gameOver();
       }
 

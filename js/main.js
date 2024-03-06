@@ -1,7 +1,7 @@
 import { lifesCount, updateLifeCount } from './life.js';
-import { secondsLeft, timerInterval, currentLevel, moveToNextLevel } from './timer_levels.js';
+import { secondsLeft, timerInterval, currentLevel, moveToNextLevel,updateTimer} from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies, createBoss} from './enemy.js';
-import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies } from './bonuses.js';
+import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies, speedDowngrade } from './bonuses.js';
 import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
 
 const gameArea = document.getElementById('gameArea');
@@ -131,15 +131,34 @@ export function gameOver() {
     playLoseSound();
     clearInterval(timerInterval);
     localStorage.removeItem('lifesCount');
-
-    currentLevel = 1;
-    speedDowngrade = 0;
-    updateLifeCount(5);
-    powerShotActive = false;
-    secondsLeft = 30;
-    timerInterval = setInterval(updateTimer, 1000);
-    requestAnimationFrame(gameLoop);
+    // currentLevel = 1;
+    // speedDowngrade = 0;
+    // updateLifeCount(5);
+    // powerShotActive = false;
+    // secondsLeft = 30;
+    // timerInterval = setInterval(updateTimer, 1000);
+    // requestAnimationFrame(gameLoop);
 }
+
+export function gameOver_screen(){
+    let gameOver_section = document.createElement('div');
+    gameOver_section.className = 'gameover';
+    gameOver_section.setAttribute('id', 'gameover');
+  
+    gameOver_section.innerHTML = `
+        <div class="gameover-wrap">
+          <h2 class="gameover-title">Better luck next time!</h2>
+          <img src="images/gameover.jpg">
+          <button id="retry">Press any button</button>
+        </div>
+    `;
+    gameArea.appendChild(gameOver_section);
+    document.addEventListener('keydown', function (event) {
+        location.reload();
+      });
+}
+
+
 
 document.addEventListener('mousemove', function (e) {
     const dot = document.getElementById('cursorDot');
@@ -155,6 +174,7 @@ document.addEventListener('mousedown', shoot);
 document.addEventListener('mouseup', idleFrame);
 
 requestAnimationFrame(gameLoop);
+
 
 
 

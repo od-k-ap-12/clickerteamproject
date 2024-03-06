@@ -13,6 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('keydown', function (event) {
     var link = document.getElementById('link');
-    // link.click();
+    link.click();
   });
 
