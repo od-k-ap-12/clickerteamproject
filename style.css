@@ -15,7 +15,7 @@ body {
   justify-content: center;
   background: url(images/bg_blur.JPEG);
   background-size: cover;
-  /* cursor: none; */
+  cursor: none;
 }
 
 /* index.html */
@@ -34,10 +34,11 @@ body {
   bottom: 10%;
   left: 7%;
   text-decoration: none;
-  /* cursor: none; */
+  cursor: none;
 }
 .start-game:hover {
   background:  rgb(83, 95, 27);
+  cursor: none;
 }
 
 .title{
@@ -93,10 +94,22 @@ body {
 #cursorDot {
   position: absolute;
   pointer-events: none;
-  z-index: 10;
+  z-index: 30;
+}
+#customCursor{
+  position: absolute;
+  pointer-events: none;
+  z-index: 30;
 }
 
 .target {
+  width: 80px;
+  height: 80px;
+  position: inherit;
+  left: -40px;
+  top: -40px;
+}
+.myCursor{
   width: 80px;
   height: 80px;
   position: inherit;
