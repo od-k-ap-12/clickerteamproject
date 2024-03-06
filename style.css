@@ -163,10 +163,11 @@ body {
 }
 #playMusic {
   width: 150px;
-  left: 45%;
+  left: 50%;
   font-size: 22px;
   border: none;
   cursor: none;
+  transform: translateX(-50%);
 }
 #playMusic:hover {
   background-color: rgba(172, 148, 120, 0.7);

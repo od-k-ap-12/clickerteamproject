@@ -1,7 +1,7 @@
 import { lifesCount, updateLifeCount } from './life.js';
-import { secondsLeft, timerInterval, currentLevel, moveToNextLevel,updateTimer} from './timer_levels.js';
+import { secondsLeft, timerInterval, currentLevel} from './timer_levels.js';
 import { createEnemy, moveEnemies, enemies, createBoss} from './enemy.js';
-import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies, speedDowngrade } from './bonuses.js';
+import { powerShotActive, showBonusSelection, isBonusSelection, autoDestroyEnemies } from './bonuses.js';
 import { backgroundMusic, playMusic, playShootSound, playHitSound, playLoseSound } from './audio.js';
 
 const gameArea = document.getElementById('gameArea');
@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         gameArea.style.width = window.innerWidth * 0.9 + 'px';
         gameArea.style.height = window.innerHeight * 0.9 + 'px';
     }
-    //backgroundMusic.play();
 });
 
 const gold = document.createElement('div');
@@ -25,9 +24,8 @@ gameArea.appendChild(gold);
 // Переменные для обновления состояние игры
 let spawnRate = 2000;
 let lastSpawn = -1;
-let bossCreated=false;
+let bossCreated = false;
 // let animationFrame = 0;
-
 
 function idleFrame() {
     setTimeout(() => {
@@ -111,10 +109,7 @@ export function gameLoop(currentTime) {
             lastSpawn = currentTime;
         }
         moveEnemies();
-        // autoDestroyEnemies();
-
-        // moveBoss();  // не працює
-        
+        //autoDestroyEnemies();
     }
 
     if (lifesCount > 0 && secondsLeft > 0) {
@@ -131,13 +126,6 @@ export function gameOver() {
     playLoseSound();
     clearInterval(timerInterval);
     localStorage.removeItem('lifesCount');
-    // currentLevel = 1;
-    // speedDowngrade = 0;
-    // updateLifeCount(5);
-    // powerShotActive = false;
-    // secondsLeft = 30;
-    // timerInterval = setInterval(updateTimer, 1000);
-    // requestAnimationFrame(gameLoop);
 }
 
 export function gameOver_screen(){
@@ -157,8 +145,6 @@ export function gameOver_screen(){
         location.reload();
       });
 }
-
-
 
 document.addEventListener('mousemove', function (e) {
     const dot = document.getElementById('cursorDot');
