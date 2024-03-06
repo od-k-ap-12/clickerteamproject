@@ -106,10 +106,12 @@ function autoDestroyEnemies() {
     else{
       if (Math.random() < 0.1) // більша ймовірність вбити маленьку тварюку
       {
-        enemyObj.hitPoints = 0;
-        enemyObj.element.remove();
-        playShootSound();
-        enemies.splice(index, 1);
+        if(enemyObj.spriteEnemy.src!=="images/boss.png"){
+          enemyObj.hitPoints = 0;
+          enemyObj.element.remove();
+          playShootSound();
+          enemies.splice(index, 1);
+        }
       }
     }
   });
