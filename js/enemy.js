@@ -9,14 +9,28 @@ const enemySpeed = 3;
 // массив спрайтов врагов
 const enemySprites = ["images/enemy1.png", "images/enemy2.png", "images/enemy3.png"];
 
+class Enemy{
+    constructor(){
+        this.hitPoints=2;
+        this.Speed=3;
+    }
+}
+
+function EnemyFactory(){
+     let enemy=new Enemy();
+     enemy.spriteIndex = Math.floor(Math.random() * enemySprites.length);
+     return enemy;
+}
+
 function createEnemy() {
+    let enemyObj=EnemyFactory();
     let enemy = document.createElement('div');
     enemy.className = 'enemy';
 
     var spriteEnemy = document.createElement('img');
     // рандом спрайта для врага
     const randomIndex = Math.floor(Math.random() * enemySprites.length);
-    spriteEnemy.src = enemySprites[randomIndex];
+    spriteEnemy.src = enemySprites[enemyObj.spriteIndex];
 
     let yPos = gameArea.offsetHeight / 2 - (Math.floor(Math.random() * 10) + 95);
     enemy.style.top = yPos + 'px';
@@ -35,7 +49,7 @@ function createEnemy() {
     enemy.style.left = xPos + 'px';
     enemy.appendChild(spriteEnemy);
     gameArea.appendChild(enemy);
-    enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 2 });
+    enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: enemyObj.hitPoints });
 }
 
 function createBoss() {
