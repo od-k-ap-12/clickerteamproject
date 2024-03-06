@@ -93,7 +93,7 @@ function showBonusSelection() {
 // Автоклік - відкривається з 3-го рівня
 function autoDestroyEnemies() {
   enemies.forEach((enemyObj, index) => {
-    if (currentLevel % 5 != 0) 
+    if (currentLevel % 5 !== 0) 
     {
       if (Math.random() < (0.005 + currentLevel * 0.001)) // можно играться со значением при желании
       {

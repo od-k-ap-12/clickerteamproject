@@ -277,9 +277,6 @@ body {
   font-weight: 500;
   color: rgb(68, 47, 44);
 }
-#retry:hover{
-  background-color: #a18f76;
-}
 
 .bonusButton {
   width: 100px;
