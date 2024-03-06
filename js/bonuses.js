@@ -38,19 +38,19 @@ function showBonusSelection() {
       <div class="container">
         <div class="bonus-container">
             <button class="bonusButton" data-bonus="slowEnemies">
-                <img src="images/boost1.png">
+                <img src="images/speeddown.png">
             </button>
             <p class="bonusName">Slow down enemies</p>
         </div>
         <div class="bonus-container">
             <button class="bonusButton" data-bonus="extraLife">
-                <img src="images/boost2.png">
+                <img src="images/extralife.png">
             </button>
             <p class="bonusName">Extra life</p>
         </div>
         <div class="bonus-container">
             <button class="bonusButton" data-bonus="powerShot">
-                <img src="images/target.png">
+                <img src="images/doubledamage.png">
             </button>
             <p class="bonusName">Power shot</p>
         </div>

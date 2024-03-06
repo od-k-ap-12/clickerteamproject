@@ -31,13 +31,13 @@ let bossCreated=false;
 
 function idleFrame() {
     setTimeout(() => {
-        gameArea.style.background = "url(images/background1.jpg)";
+        gameArea.style.background = "url(images/background1tree.jpg)";
         gameArea.style.backgroundSize = "cover";
         gameArea.style.backgroundPosition = "center";
     }, 200);
 }
 function shootFrame() {
-    gameArea.style.background = "url(images/background2.jpg)";
+    gameArea.style.background = "url(images/background2tree.jpg)";
     gameArea.style.backgroundSize = "cover";
     gameArea.style.backgroundPosition = "center";
 }

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Titan+One&display=swap');
 
 * {
   margin: 0;
@@ -18,29 +20,56 @@ body {
 
 /* index.html */
 .start-game {
-  background: rgb(95, 124, 65);
+  background: rgb(117, 133, 47);
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
   border: none;
   border-radius: 20px;
   color: aliceblue;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 30px;
-  padding: 20px 50px;
+  font-family: "Rowdies", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 40px;
+  padding: 10px 80px;
   position: absolute;
-  bottom: 20%;
-  left: 10%;
+  bottom: 10%;
+  left: 7%;
   text-decoration: none;
-  cursor: none;
+  /* cursor: none; */
 }
 .start-game:hover {
-  background: rgb(63, 88, 60);
+  background:  rgb(83, 95, 27);
+}
+
+.title{
+  font-family: "Titan One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 70px;
+  color:rgb(255, 214, 101);
+  text-shadow: 2px 2px 3px rgb(130, 145, 48),  0 0 0.2em rgb(46, 37, 8);
+  letter-spacing: 4px;
+  margin: 50px;
 }
 
 /* level.html */
-#gameArea {
+#gameArea{
   border-radius: 20px;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
-  background: url(images/background1.jpg);
+  background: url(images/background1tree.jpg);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: none;
+}
+
+#titlescreen{
+  border-radius: 20px;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.8);
+  background: url(images/titlegif.gif);
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -54,7 +83,7 @@ body {
 #gold {
   width: 50px;
   height: 50px;
-  background-color: gold;
+  background-color: transparent;
   position: absolute;
   left: 50%;
   top: 50%;
