@@ -91,6 +91,7 @@ function shoot(event) {
 
 export function gameLoop(currentTime) {
     if (currentLevel % 5 != 0) {
+        bossCreated=false;
         if (lastSpawn === -1 || currentTime - lastSpawn > (spawnRate - currentLevel * 150)) {
             createEnemy();
             lastSpawn = currentTime;
