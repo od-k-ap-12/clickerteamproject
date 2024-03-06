@@ -22,12 +22,12 @@ gold.classList.add('gold');
 gameArea.appendChild(gold);
 
 document.addEventListener('mousedown', shoot);
-document.addEventListener('mouseup', idleFrame);
+// document.addEventListener('mouseup', idleFrame);
+
 // Переменные для обновления состояние игры
 let spawnRate = 2000;
 let lastSpawn = -1;
 let bossCreated = false;
-// let animationFrame = 0;
 
 function idleFrame() {
     setTimeout(() => {
@@ -157,31 +157,28 @@ document.addEventListener('mousemove', function (e) {
     dot.style.top = (e.pageY - rect.top) * scaleY + 'px';
 });
 
-// document.addEventListener('mousedown', shoot);
-// document.addEventListener('mouseup', idleFrame);
-
-class Observer{
-    subscribers=[];
-    broadcast(){
-        this.subscribers.forEach((cb)=>
-        {
-            cb();
+class Observer {
+    subscribers = [];
+    
+    broadcast = () => { 
+        this.subscribers.forEach(callback => {
+            callback(); 
         });
         console.log(this.subscribers.length);
-        for(let i=0;i<this.subscribers.length;i++){
-            this.subscribers[i]();
-        }
     }
-    subscribe(callback){
+
+    subscribe(callback) {
         this.subscribers.push(callback);
     }
-    unsubscribe(callback){
-        this.subscribers.filter((cb)=>cb!==callback);
+
+    unsubscribe(callback) {
+        this.subscribers = this.subscribers.filter(cb => cb !== callback);  
     }
 }
-let MouseDownObserver=new Observer();
-MouseDownObserver.subscribe(shootFrame());
-document.addEventListener('mouseup', MouseDownObserver.broadcast);
+
+let MouseUpObserver = new Observer();
+MouseUpObserver.subscribe(() => idleFrame()); 
+document.addEventListener('mouseup', () => MouseUpObserver.broadcast());  
 
 requestAnimationFrame(gameLoop);
 
