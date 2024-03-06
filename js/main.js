@@ -56,7 +56,7 @@ function shoot(event) {
                 event.clientY <= rect.bottom
             ) {
                 // проверка флага
-                if (powerShotActive) {
+                if (powerShotActive&&enemyObj.hitPoints<=2) {
                     enemyObj.hitPoints = 0; // супер урон(-2)
                 } else {
                     enemyObj.hitPoints--;   // обычный урон(-1)

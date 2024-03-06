@@ -22,7 +22,7 @@ function moveToNextLevel() {
   document.getElementById('level').textContent = 'Level: ' + currentLevel;
   
   if (currentLevel % 5 == 0){
-    secondsLeft = 60;
+    secondsLeft = 30;
   }
   
   requestAnimationFrame(gameLoop);

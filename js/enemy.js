@@ -76,7 +76,7 @@ function createBoss() {
     enemy.style.left = xPos + 'px';
     enemy.appendChild(spriteEnemy);
     gameArea.appendChild(enemy);
-    enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 50 });
+    enemies.push({ element: enemy, xPos: xPos, yPos: yPos, hitPoints: 30 });
 }
 
 function moveEnemies() {
